@@ -1,4 +1,7 @@
 import express from 'express';
+import 'express-async-errors';
+import errorHandler from './middlewares/error';
+import userRouter from './routes/user.route';
 
 class App {
   public app: express.Express;
@@ -8,6 +11,9 @@ class App {
 
     this.config();
 
+    this.app.use('/', userRouter);
+
+    this.app.use(errorHandler);
   }
 
   private config(): void {

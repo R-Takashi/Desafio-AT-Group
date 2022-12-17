@@ -1,6 +1,7 @@
 export enum ErrorTypes {
   UserNotFound = 'UserNotFound',
   IncorrectPassword = 'IncorrectPassword',
+  UserAlreadyExists = 'UserAlreadyExists',
 }
 
 type ErrorResponseObject = {
@@ -18,5 +19,9 @@ export const errorCatalog: ErrorCatalog = {
   IncorrectPassword: {
     message: 'Senha incorreta',
     status: 401,
+  },
+  UserAlreadyExists: {
+    message: 'Email já cadastrado',
+    status: 409,
   },
 };

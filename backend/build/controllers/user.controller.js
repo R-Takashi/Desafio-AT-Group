@@ -21,6 +21,12 @@ class UserController {
             const token = yield this._userService.login(email, senha);
             return res.status(200).json({ token });
         });
+        this.register = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const register = req.body;
+            const newUser = Object.assign(Object.assign({}, register), { dataDeNascimento: new Date(register.dataDeNascimento) });
+            const user = yield this._userService.register(newUser);
+            return res.status(201).json(user);
+        });
     }
 }
 exports.default = UserController;

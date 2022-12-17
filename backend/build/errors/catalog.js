@@ -5,6 +5,7 @@ var ErrorTypes;
 (function (ErrorTypes) {
     ErrorTypes["UserNotFound"] = "UserNotFound";
     ErrorTypes["IncorrectPassword"] = "IncorrectPassword";
+    ErrorTypes["UserAlreadyExists"] = "UserAlreadyExists";
 })(ErrorTypes = exports.ErrorTypes || (exports.ErrorTypes = {}));
 exports.errorCatalog = {
     UserNotFound: {
@@ -14,5 +15,9 @@ exports.errorCatalog = {
     IncorrectPassword: {
         message: 'Senha incorreta',
         status: 401,
+    },
+    UserAlreadyExists: {
+        message: 'Email já cadastrado',
+        status: 409,
     },
 };

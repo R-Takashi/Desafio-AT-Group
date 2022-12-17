@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const catalog_1 = require("../errors/catalog");
 const errorHandler = (error, _req, res, _next) => {
+    console.log(error);
     const messageErrorType = error.message;
     const errorCatalogEntry = catalog_1.errorCatalog[messageErrorType];
     if (errorCatalogEntry) {

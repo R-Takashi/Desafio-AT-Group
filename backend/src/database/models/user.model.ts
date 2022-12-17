@@ -34,9 +34,10 @@ User.init({
     type: STRING,
     allowNull: true,
   },
-  data_de_nascimento: {
+  dataDeNascimento: {
     type: DATE,
     allowNull: false,
+    field: 'data_de_nascimento',
   },
   ativo: {
     type: BOOLEAN,
@@ -45,7 +46,8 @@ User.init({
   },
 }, {
   sequelize: database,
-  underscored: true,
   tableName: 'Users',
+  modelName: 'User',
   timestamps: false,
+  underscored: true,
 });

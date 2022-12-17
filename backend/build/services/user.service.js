@@ -33,6 +33,15 @@ class UserService {
             });
             return token;
         });
+        this.register = (newUser) => __awaiter(this, void 0, void 0, function* () {
+            const userExists = yield this._userModel.findOne({ where: { email: newUser.email } });
+            if (userExists) {
+                throw new Error(catalog_1.ErrorTypes.UserAlreadyExists);
+            }
+            console.log(newUser);
+            const user = yield this._userModel.create(Object.assign({}, newUser));
+            return user;
+        });
     }
 }
 exports.default = UserService;

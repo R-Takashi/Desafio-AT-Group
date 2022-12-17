@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -30,7 +30,7 @@ module.exports = {
       },
       data_de_nascimento: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       ativo: {
         type: Sequelize.BOOLEAN,

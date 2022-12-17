@@ -13,4 +13,6 @@ userRouter.post('/register', validateRegister, userController.register);
 
 userRouter.patch('/register/update', validateUpdateRegister, userController.update);
 
+userRouter.patch('/register/deactivate', userController.deactivate);
+
 export default userRouter;

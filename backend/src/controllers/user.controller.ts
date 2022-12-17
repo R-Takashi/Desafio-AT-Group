@@ -33,4 +33,13 @@ export default class UserController {
 
     return res.status(200).json(updatedUser);
   }
+
+  public deactivate = async (req: Request, res: Response): Promise<Response> => {
+    const token = req.headers.authorization;
+
+    const deactivatedUser = await this._userService.deactivate(token);
+
+    return res.status(201).json(deactivatedUser);
+  };
+
 }

@@ -62,4 +62,18 @@ export default class UserService {
       return "Usuário atualizado com sucesso";
   }
 
+  public deactivate = async (token: string | undefined): Promise<string> => {
+    const { id } = decode(token as string) as { id: number };
+
+    const user = await this._userModel.findOne({ where: { id } }) as User;
+
+    if (!user) {
+      throw new Error(ErrorTypes.UserNotFound);
+    }
+
+    await this._userModel.update({ ativo: false }, { where: { id } });
+
+    return "Usuário desativado com sucesso";
+  }
+
 }

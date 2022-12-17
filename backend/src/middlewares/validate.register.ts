@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Register } from '../interfaces/IRegister';
+import { UpdateRegister } from '../interfaces/IUpdateRegister';
 
 const validateRegister = (req: Request, res: Response, next: NextFunction) => {
   const cadastro = req.body as Register;
@@ -31,4 +32,30 @@ const validateRegister = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-export default validateRegister;
+const validateUpdateRegister = (req: Request, res: Response, next: NextFunction) => {
+  const cadastro = req.body as UpdateRegister;
+
+  const fieldChecks = [
+    cadastro.nome && cadastro.nome.length < 2,
+    cadastro.senha && cadastro.senha.length < 6,
+  ];
+
+  const fieldMessages = [
+    'Nome deve ter no mínimo 2 caracteres',
+    'Senha deve ter no mínimo 6 caracteres',
+  ];
+
+  if (fieldChecks.some((check) => check)) {
+    const index = fieldChecks.findIndex((check) => check);
+    return res.status(400).json({ message: fieldMessages[index] });
+  }
+
+
+  next();
+};
+
+
+export {
+  validateRegister,
+  validateUpdateRegister,
+};

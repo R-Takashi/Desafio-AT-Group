@@ -24,4 +24,13 @@ export default class UserController {
 
     return res.status(201).json(createUser);
   };
+
+  public update = async (req: Request, res: Response): Promise<Response> => {
+    const token = req.headers.authorization;
+    const update = req.body;
+
+    const updatedUser = await this._userService.update(update, token);
+
+    return res.status(200).json(updatedUser);
+  }
 }

@@ -3,6 +3,8 @@ import { ErrorTypes, errorCatalog } from '../errors/catalog';
 
 const errorHandler: ErrorRequestHandler = (error: Error, _req, res, _next) => {
 
+  console.log('Error: ', error.message);
+  
   const messageErrorType = error.message as ErrorTypes;
   const errorCatalogEntry = errorCatalog[messageErrorType];
 

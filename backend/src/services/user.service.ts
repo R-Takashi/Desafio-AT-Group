@@ -45,6 +45,26 @@ export default class UserService {
     return "Usuário criado com sucesso";
   }
 
+  public getUser = async (token: string | undefined): Promise<User> => {
+    const userDecoded = decode(token as string) as any;
+    console.log(userDecoded);
+    
+
+    const { id } = userDecoded;
+
+
+    const user = await this._userModel.findOne({ 
+      where: { id } ,
+      attributes: { exclude: ['senha'] }
+    }) as User;
+
+    if (!user) {
+      throw new Error(ErrorTypes.UserNotFound);
+    }
+
+    return user;
+  };
+
   public update = async (update: UpdateRegister, token: string | undefined): Promise<string> => {
       
       const { id } = decode(token as string) as { id: number };

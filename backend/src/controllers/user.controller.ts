@@ -25,6 +25,14 @@ export default class UserController {
     return res.status(201).json(createUser);
   };
 
+  public getUser = async (req: Request, res: Response): Promise<Response> => {
+    const token = req.headers.authorization;
+
+    const user = await this._userService.getUser(token);
+
+    return res.status(200).json(user);
+  };
+
   public update = async (req: Request, res: Response): Promise<Response> => {
     const token = req.headers.authorization;
     const update = req.body;

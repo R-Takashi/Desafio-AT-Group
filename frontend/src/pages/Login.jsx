@@ -21,6 +21,8 @@ export default function Login() {
 
     setToken(login.token);
 
+    localStorage.setItem('token', login.token);
+
     return navigate('/home');
   }
 

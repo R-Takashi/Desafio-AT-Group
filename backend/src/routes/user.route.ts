@@ -9,6 +9,8 @@ const userController = new UserController();
 
 userRouter.post('/login', validateLogin,  userController.login);
 
+userRouter.get('/user', userController.getUser);
+
 userRouter.post('/register', validateRegister, userController.register);
 
 userRouter.patch('/register/update', validateUpdateRegister, userController.update);

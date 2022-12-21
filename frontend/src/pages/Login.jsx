@@ -1,17 +1,27 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { requestLogin, setToken } from '../utils/api';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
     if (!emailRegex.test(email)) setError('Email não é válido');
 
     if (password.length < 6) setError('Senha deve ter no mínimo 6 caracteres');
+
+    const login = await requestLogin('/login', { email, senha: password });
+
+    if (login.error) return setError(login.error);
+
+    setToken(login.token);
+
+    return navigate('/home');
   }
 
   return (

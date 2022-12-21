@@ -8,6 +8,9 @@ services:
     platform: linux/x86_64
     working_dir: /app-frontend
     restart: always
+    volumes:
+      - ./frontend/src:/app-frontend/src
+      - ./frontend/public:/app-frontend/public
     command: npm start
     depends_on:
       - backend
@@ -26,8 +29,9 @@ services:
     platform: linux/x86_64
     working_dir: /app-backend
     volumes: 
-      - ./backend/src:/app-backend/src
+      - ./backend:/app-backend
     restart: always
+    command: npm run db:reset
     depends_on:
       - db
   db:

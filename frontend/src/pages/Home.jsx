@@ -6,6 +6,7 @@ import moment from 'moment';
 
 export default function Home() {
   const [user, setUser] = useState({});
+  const [birthday, setBirthday] = useState('');
   const [birthdayCount, setBirthdayCount] = useState('');
   const navigate = useNavigate();
 
@@ -16,6 +17,8 @@ export default function Home() {
     const getUser = async () => {
       const user = await requestData('/user');
       setUser(user);
+      const birthdayUser = new Date(user.dataDeNascimento);
+      setBirthday(birthdayUser.setDate(birthdayUser.getDate() + 1));
     }
     getUser();
   }, []);
@@ -24,10 +27,15 @@ export default function Home() {
     const daysToBirthday = () => {
       const today = new Date();
       const birthday = new Date(user.dataDeNascimento);
-      const thisYearBirthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate());
+      const thisYearBirthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate() + 1);
       const days = Math.floor((thisYearBirthday - today) / (1000 * 60 * 60 * 24));
 
-      days === 0 ? setBirthdayCount('Feliz aniversário!') : setBirthdayCount(`Tempo para seu aniversário: ${days + 1} dias`);
+      if (days === -1) return setBirthdayCount('Feliz aniversário!');
+
+      if (days === 0) return setBirthdayCount('Tempo para seu aniversário: 1 dia');
+
+      return days < -1 ? setBirthdayCount(`Tempo para seu aniversário: ${days + 365} dias`) : 
+        setBirthdayCount(`Tempo para seu aniversário: ${days + 1} dias`);
     };
     daysToBirthday();
   }, [user.dataDeNascimento]);
@@ -36,8 +44,6 @@ export default function Home() {
     localStorage.removeItem('token');
     navigate('/');
   }
-
-  console.log(user);
   
   return (
     <div>
@@ -57,7 +63,8 @@ export default function Home() {
       <h1>Home</h1>
       <p>Nome: {user.nome}</p>
       <p>Email: {user.email}</p>
-      <p>Data de nascimento: {moment(user.dataDeNascimento).format('DD/MM/YYYY')}</p>
+      <p>Data de nascimento: {moment(birthday).format('DD/MM/YYYY')}</p>
+
     </div>
   )
 }

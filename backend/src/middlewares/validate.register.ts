@@ -10,7 +10,7 @@ const validateRegister = (req: Request, res: Response, next: NextFunction) => {
   const bornDate = new Date(cadastro.dataDeNascimento);
   
   const fieldChecks = [
-    cadastro.nome.length < 2,
+    !cadastro.nome || cadastro.nome.length < 2,
     !emailRegex.test(cadastro.email),
     cadastro.senha.length < 6,
     !(bornDate instanceof Date && !isNaN(bornDate.getTime())) ,

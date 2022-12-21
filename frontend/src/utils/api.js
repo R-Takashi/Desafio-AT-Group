@@ -26,4 +26,13 @@ export const requestData = async (endpoint) => {
   }
 };
 
+export const requestSignup = async (body) => {
+  try {
+    const { data } = await api.post('/register', body);
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 export default api;

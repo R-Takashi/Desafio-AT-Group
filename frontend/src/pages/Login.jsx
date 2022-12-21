@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { requestLogin, setToken } from '../utils/api';
 
 export default function Login() {
@@ -17,7 +17,7 @@ export default function Login() {
 
     const login = await requestLogin('/login', { email, senha: password });
 
-    if (login.error) return setError(login.error);
+    if (login.message) return setError(login.message);
 
     setToken(login.token);
 
@@ -60,7 +60,7 @@ export default function Login() {
           {error && <div>{error}</div>}
 
           <div>
-            <a href="/register">Register</a>
+            <Link to="/signup">Cadastre-se</Link>
           </div>
 
       </form>

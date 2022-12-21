@@ -22,7 +22,7 @@ export default class UserController {
 
     const createUser = await this._userService.register(newUser);
 
-    return res.status(201).json(createUser);
+    return res.status(201).json({ token: createUser });
   };
 
   public getUser = async (req: Request, res: Response): Promise<Response> => {

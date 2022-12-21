@@ -40,9 +40,13 @@ export default class UserService {
     const senhaHash = await hash(newUser.senha, 8);
     
 
-    await this._userModel.create({...newUser, senha: senhaHash});
+    const createdUser = await this._userModel.create({...newUser, senha: senhaHash});
 
-    return "Usuário criado com sucesso";
+    const token = sign({ id: createdUser.id, email: createdUser.email, userName: createdUser.nome }, process.env.JWT_SECRET as string, {
+      expiresIn: '1d',
+    });
+
+    return token as string;
   }
 
   public getUser = async (token: string | undefined): Promise<User> => {

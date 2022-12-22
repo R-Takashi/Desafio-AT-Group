@@ -79,9 +79,15 @@ export default class UserService {
         throw new Error(ErrorTypes.UserNotFound);
       }
   
-      const senhaHash = await hash(update.senha, 8);
+      const senhaHash = (update.senha) ? await hash(update.senha, 8) : user.senha;
+
+      const updatedUser = {
+        nome: update.nome ? update.nome : user.nome,
+        senha: senhaHash,
+        avatar: update.avatar ? update.avatar : user.avatar
+      }
   
-      await this._userModel.update({...update, senha: senhaHash}, { where: { id } });
+      await this._userModel.update({ ...updatedUser }, { where: { id } });
   
       return "Usuário atualizado com sucesso";
   }

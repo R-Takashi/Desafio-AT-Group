@@ -35,4 +35,13 @@ export const requestSignup = async (body) => {
   }
 };
 
+export const updateRegister = async (body) => {
+  try {
+    const { data } = await api.patch('/register/update', body);
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 export default api;
